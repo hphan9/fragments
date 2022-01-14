@@ -1,0 +1,24 @@
+{
+  "name": "fragments",
+  "version": "0.0.1",
+  "private": "true",
+  "description": "Fragments back-end API for Winter 2022",
+  "engines": {
+    "node": ">=16"
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hphan9/fragments.git"
+  },
+  "keywords": [],
+  "author": "Emily Phan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hphan9/fragments/issues"
+  },
+  "homepage": "https://github.com/hphan9/fragments#readme"
+}
