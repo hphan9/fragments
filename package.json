@@ -27,5 +27,10 @@
     "@typescript-eslint/parser": "^5.9.1",
     "eslint": "^8.6.0",
     "prettier": "2.5.1"
+  },
+  "dependencies": {
+    "pino": "^7.6.3",
+    "pino-http": "^6.5.0",
+    "pino-pretty": "^7.3.0"
   }
 }
