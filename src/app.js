@@ -11,7 +11,8 @@ const pino = require('pino-http')({
   // Use our default logger instance, which is already configured
   logger,
 });
-
+const passport= require('passport');
+const authorization= require('./authorization');
 // Create an express app instance we can use to attach middleware and HTTP routes
 const app = express();
 
@@ -26,6 +27,10 @@ app.use(cors());
 
 // Use gzip/deflate compression middleware
 app.use(compression());
+
+// Set up our passport authorization middleware
+passport.use(authorization.strategy());
+app.use(passport.initialize());
 
 // Define a simple health check route. If the server is running
 // we'll respond with a 200 OK.  If not, the server isn't healthy.
