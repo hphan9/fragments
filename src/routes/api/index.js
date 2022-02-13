@@ -12,5 +12,7 @@
  router.get('/fragments', require('./get'));
  
  // Other routes will go here later on...
- 
+//  router.post('/fragments', require('./post'));
+//  router.put('/fragments', require('./put'));
+//  router.delete('/fragments', require('./delete'));
  module.exports = router;
