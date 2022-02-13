@@ -27,8 +27,8 @@ class Fragment {
     const now = new Date();
     this.id = id || nanoid();
     this.ownerId = ownerId;
-    this.created = now.toUTCString();
-    this.updated = now.toUTCString();
+    this.created = created || now.toUTCString();
+    this.updated = updated || now.toUTCString();
     this.type = type;
     this.size = size;
   }
@@ -98,7 +98,7 @@ class Fragment {
    */
   async setData(data) {
     if(!data){
-    return Promise.toThrow()
+    return Promise.reject(new Error())
     }
     let now= new Date();
     this.updated= now.toUTCString();
