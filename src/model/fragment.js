@@ -27,8 +27,8 @@ class Fragment {
     const now = new Date();
     this.id = id || nanoid();
     this.ownerId = ownerId;
-    this.created = created || now.toUTCString();
-    this.updated = updated || now.toUTCString();
+    this.created = created || now.toISOString();
+    this.updated = updated || now.toISOString();
     this.type = type;
     this.size = size;
   }
@@ -57,7 +57,7 @@ class Fragment {
   static async byId(ownerId, id) {
     var fragment= await readFragment(ownerId, id);
     if(!fragment){
-      return Promise.reject(new Error());
+      throw new Error();
     }else{
       return Promise.resolve(fragment);
     }
@@ -79,7 +79,7 @@ class Fragment {
    */
   save() {
     let now= new Date();
-    this.updated= now.toUTCString();
+    this.updated= now.toISOString();
     return writeFragment(this);
   }
 
@@ -98,10 +98,10 @@ class Fragment {
    */
   async setData(data) {
     if(!data){
-    return Promise.reject(new Error())
+    throw new Error();
     }
     let now= new Date();
-    this.updated= now.toUTCString();
+    this.updated= now.toISOString();
     this.size= data.length;
     return writeFragmentData(this.ownerId, this.id, data);
   }
