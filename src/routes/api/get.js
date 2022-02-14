@@ -7,15 +7,15 @@ var { createSuccessResponse, createErrorResponse } = require('../../response');
  */
 module.exports = async (req, res) => {
   let expand = req.query.expand ? true : false;
-  logger.debug(`Start handling Get request with expand = ${expand}`);
-  let ownerId = 'emily@gmail.com';
+  logger.info({expand},`Start handling Get request with expand `);
   // get all the data by User
   let fragments;
   try {
-    fragments = await Fragment.byUser(ownerId, expand);
-    logger.debug(`${fragments} returns`);
+    fragments = await Fragment.byUser(req.user, expand);
+    logger.info({fragments}, `returns after query to database`);
   } catch (err) {
+    logger.warn(`Error getting fragments for user ${err}`);
     return res.status(400).json(createErrorResponse(400, err));
   }
-  return res.status(200).json(createSuccessResponse(fragments));
+    return res.status(200).json(createSuccessResponse({'fragments': fragments}));
 };

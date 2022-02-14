@@ -15,14 +15,14 @@ const {
 
 class Fragment {
   constructor({ id, ownerId, created, updated, type, size = 0 }) {
-    if(!ownerId || !type ){
-      throw Error("ID and ownerId are required");
+    if (!ownerId || !type) {
+      throw Error('ID and ownerId are required');
     }
-    if( typeof size != 'number' || size < 0){
-      throw Error("size must be a number");
+    if (typeof size != 'number' || size < 0) {
+      throw Error('size must be a number');
     }
-    if(!/text\/*/.test(type)){
-      throw Error("type must be valid")
+    if (!/text\/*/.test(type)) {
+      throw Error('type must be valid');
     }
     const now = new Date();
     this.id = id || nanoid();
@@ -40,10 +40,10 @@ class Fragment {
    * @returns Promise<Array<Fragment>>
    */
   static async byUser(ownerId, expand = false) {
-    try{
-      const fragments= await listFragments(ownerId,expand);
-      return expand? fragments.map(fragment=>new Fragment(fragment)) :fragments;
-    }catch{
+    try {
+      const fragments = await listFragments(ownerId, expand);
+      return expand ? fragments.map((fragment) => new Fragment(fragment)) : fragments;
+    } catch {
       return [];
     }
   }
@@ -55,10 +55,10 @@ class Fragment {
    * @returns Promise<Fragment>
    */
   static async byId(ownerId, id) {
-    var fragment= await readFragment(ownerId, id);
-    if(!fragment){
+    var fragment = await readFragment(ownerId, id);
+    if (!fragment) {
       throw new Error();
-    }else{
+    } else {
       return Promise.resolve(fragment);
     }
   }
@@ -70,7 +70,7 @@ class Fragment {
    * @returns Promise
    */
   static delete(ownerId, id) {
-    return deleteFragment(ownerId,id);
+    return deleteFragment(ownerId, id);
   }
 
   /**
@@ -78,8 +78,8 @@ class Fragment {
    * @returns Promise
    */
   save() {
-    let now= new Date();
-    this.updated= now.toISOString();
+    let now = new Date();
+    this.updated = now.toISOString();
     return writeFragment(this);
   }
 
@@ -88,7 +88,7 @@ class Fragment {
    * @returns Promise<Buffer>
    */
   getData() {
-    return readFragmentData(this.ownerId,this.id)
+    return readFragmentData(this.ownerId, this.id);
   }
 
   /**
@@ -97,12 +97,12 @@ class Fragment {
    * @returns Promise
    */
   async setData(data) {
-    if(!data){
-    throw new Error();
+    if (!data) {
+      throw new Error();
     }
-    let now= new Date();
-    this.updated= now.toISOString();
-    this.size= data.length;
+    let now = new Date();
+    this.updated = now.toISOString();
+    this.size = data.length;
     return writeFragmentData(this.ownerId, this.id, data);
   }
 
@@ -121,7 +121,7 @@ class Fragment {
    * @returns {boolean} true if fragment's type is text/*
    */
   get isText() {
-    const re= /text\/*/;
+    const re = /text\/*/;
     return re.test(this.mimeType);
   }
 
@@ -130,7 +130,7 @@ class Fragment {
    * @returns {Array<string>} list of supported mime types
    */
   get formats() {
-    switch (this.mimeType){
+    switch (this.mimeType) {
       case 'text/plain':
         return ['text/plain'];
       case 'text/markdown':
@@ -140,17 +140,16 @@ class Fragment {
       case 'application/json':
         return ['text/plain', 'application/json'];
       case 'image/png':
-        return['image/png','image/jpg','image/webp','image/gif'];
+        return ['image/png', 'image/jpg', 'image/webp', 'image/gif'];
       case 'image/jpeg':
-        return ['image/png','image/jpg','image/webp','image/gif'];
+        return ['image/png', 'image/jpg', 'image/webp', 'image/gif'];
       case 'image/webp':
-        return ['image/png','image/jpg','image/webp','image/gif'];
+        return ['image/png', 'image/jpg', 'image/webp', 'image/gif'];
       case 'image/gif':
-        return['image/png','image/jpg','image/webp','image/gif'];
+        return ['image/png', 'image/jpg', 'image/webp', 'image/gif'];
       default:
-        return[];
-      }
-
+        return [];
+    }
   }
 
   /**
