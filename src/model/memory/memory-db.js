@@ -35,7 +35,6 @@ class MemoryDB {
         `primaryKey and secondaryKey strings are required, got primaryKey=${primaryKey}, secondaryKey=${secondaryKey}`
       );
     }
-
     const db = this.db;
     // Make sure the `primaryKey` exists, or create
     db[primaryKey] = db[primaryKey] || {};
@@ -54,7 +53,7 @@ class MemoryDB {
     if (!validateKey(primaryKey)) {
       throw new Error(`primaryKey string is required, got primaryKey=${primaryKey}`);
     }
-
+    
     // No matter what, we always return an array (even if empty)
     const db = this.db;
     const values = db[primaryKey] && Object.values(db[primaryKey]);
