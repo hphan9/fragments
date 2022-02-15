@@ -53,7 +53,7 @@ class MemoryDB {
     if (!validateKey(primaryKey)) {
       throw new Error(`primaryKey string is required, got primaryKey=${primaryKey}`);
     }
-    
+
     // No matter what, we always return an array (even if empty)
     const db = this.db;
     const values = db[primaryKey] && Object.values(db[primaryKey]);

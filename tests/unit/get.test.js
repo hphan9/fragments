@@ -38,9 +38,11 @@ describe('GET /v1/fragments', () => {
 
   test('get /:id request return 404 when no data for fragment', async () => {
     //make post request
-    const res = await request(app).get(`/v1/fragments/wrongId`).auth('user2@email.com', 'password2');
+    const res = await request(app)
+      .get(`/v1/fragments/wrongId`)
+      .auth('user2@email.com', 'password2');
     expect(res.statusCode).toBe(404);
-    expect(res.body.status).toBe("error");
+    expect(res.body.status).toBe('error');
   });
 
   test('get/:id request return correct data we put into the database', async () => {

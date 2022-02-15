@@ -1,18 +1,18 @@
 // src/response.js
 
-module.exports.createSuccessResponse=function (data) {
+module.exports.createSuccessResponse = function (data) {
   return {
     status: 'ok',
-    ...data
-  }
-}
+    ...data,
+  };
+};
 
 module.exports.createErrorResponse = function (code, message) {
-  return{
+  return {
     status: 'error',
     error: {
       code: code,
       message: message,
-    }
-  }
+    },
+  };
 };

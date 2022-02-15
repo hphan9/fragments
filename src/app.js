@@ -11,9 +11,9 @@ const pino = require('pino-http')({
   // Use our default logger instance, which is already configured
   logger,
 });
-const passport= require('passport');
-const {createErrorResponse} = require('./response');
-const authorization= require('./authorization');
+const passport = require('passport');
+const { createErrorResponse } = require('./response');
+const authorization = require('./authorization');
 // Create an express app instance we can use to attach middleware and HTTP routes
 const app = express();
 

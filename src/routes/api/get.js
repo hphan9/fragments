@@ -29,12 +29,12 @@ module.exports.getId = async function (req, res) {
     logger.debug({ fragment }, `returns after query to database`);
     const rawData = await fragment.getData();
     const data = rawData.toString();
-    logger.debug({data},"data returned")
-    const convertType= fragment.type;
+    logger.debug({ data }, 'data returned');
+    const convertType = fragment.type;
     res.setHeader('content-type', convertType);
     return res.status(200).send(data);
   } catch (err) {
     logger.warn(`Error getting data for fragment ${err}`);
-    return res.status(404).json(createErrorResponse(404, "Error getting data for fragment"));
+    return res.status(404).json(createErrorResponse(404, 'Error getting data for fragment'));
   }
 };

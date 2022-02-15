@@ -11,7 +11,7 @@ describe('POST /v1/fragments', () => {
   test('incorrect credentials are denied', () =>
     request(app).post('/v1/fragments').auth('invalid@email.com', 'incorrect_password').expect(401));
 
-    // incorrect content type should return 415
+  // incorrect content type should return 415
   test('incorrect content type should return 415', async () => {
     const data = 'Have a nice day';
     //make post request
@@ -20,7 +20,7 @@ describe('POST /v1/fragments', () => {
       .set('Content-type', 'application/json')
       .send(data)
       .auth('user2@email.com', 'password2');
-  
+
     expect(res.statusCode).toBe(415);
     expect(res.body.status).toBe('error');
   });
