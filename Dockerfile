@@ -3,7 +3,7 @@
 FROM node:16.11.1
 
 LABEL maintainer="Emily Phan<hphan9@myseneca.ca>" \
-      maintainer="Fragments node.js microservice"
+      description="Fragments node.js microservice"
 
 # use port 8080 by default
 ENV PORT=8080
