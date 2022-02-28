@@ -69,4 +69,12 @@ describe('GET /v1/fragments', () => {
     expect(res.statusCode).toBe(200);
     expect(res.text).toBe(data);
   });
+
+  test('get/:id/info request return correct data we put into the database', async () => {
+    const res = await request(app)
+      .get(`/v1/fragments/${fragmentTest.id}/info`)
+      .auth('user2@email.com', 'password2');
+    expect(res.statusCode).toBe(200);
+    expect(res.body.fragments).toMatchObject(fragmentTest);
+  });
 });
