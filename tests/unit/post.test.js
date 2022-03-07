@@ -2,7 +2,7 @@
 
 const request = require('supertest');
 const app = require('../../src/app');
-
+const { Fragment } = require('../../src/model/fragment');
 describe('POST /v1/fragments', () => {
   // If the request is missing the Authorization header, it should be forbidden
   test('unauthenticated requests are denied', () => request(app).post('/v1/fragments').expect(401));
@@ -17,7 +17,7 @@ describe('POST /v1/fragments', () => {
     //make post request
     const res = await request(app)
       .post('/v1/fragments')
-      .set('Content-type', 'application/json')
+      .set('Content-type', 'image/jpg')
       .send(data)
       .auth('user2@email.com', 'password2');
 
@@ -34,11 +34,21 @@ describe('POST /v1/fragments', () => {
       .send(data)
       .auth('user2@email.com', 'password2');
     const fragmentTest = resPost.body.fragment;
-    const res = await request(app).get('/v1/fragments').auth('user2@email.com', 'password2');
-    expect(res.statusCode).toBe(200);
-    expect(res.body.status).toBe('ok');
-    expect(Array.isArray(res.body.fragments)).toBe(true);
-    expect(res.body.fragments.length).toBe(1);
-    expect(res.body.fragments[0]).toBe(fragmentTest.id);
+    const newFragment = await await Fragment.byId(fragmentTest.ownerId, fragmentTest.id);
+    expect(newFragment.id).toBe(fragmentTest.id);
+    expect(newFragment.type).toBe('text/plain');
+  });
+  test('authenticated users with content-type application/json can post a fragment', async () => {
+    const data = 'Have a nice day';
+    //make post request
+    const resPost = await request(app)
+      .post('/v1/fragments')
+      .set('Content-type', 'application/json')
+      .send(JSON.stringify(data))
+      .auth('user2@email.com', 'password2');
+    const fragmentTest = resPost.body.fragment;
+    const newFragment = await Fragment.byId(fragmentTest.ownerId, fragmentTest.id);
+    expect(newFragment.id).toBe(fragmentTest.id);
+    expect(newFragment.type).toBe('application/json');
   });
 });

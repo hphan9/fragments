@@ -5,6 +5,7 @@ const wait = async (ms = 1000) => new Promise((resolve) => setTimeout(resolve, m
 
 const validTypes = [
   `text/plain`,
+  `application/json`,
   /*
    Currently, only text/plain is supported. Others will be added later.
   `text/markdown`,
@@ -119,6 +120,9 @@ describe('Fragment class', () => {
       expect(Fragment.isSupportedType('text/plain; charset=utf-8')).toBe(true);
     });
 
+    test('application/json types are supported', () => {
+      expect(Fragment.isSupportedType('application/json')).toBe(true);
+    });
     test('other types are not supported', () => {
       expect(Fragment.isSupportedType('application/octet-stream')).toBe(false);
       expect(Fragment.isSupportedType('application/msword')).toBe(false);

@@ -21,7 +21,7 @@ class Fragment {
     if (typeof size != 'number' || size < 0) {
       throw Error('size must be a number');
     }
-    if (!/text\/*/.test(type)) {
+    if (!Fragment.isSupportedType(type)) {
       throw Error('type must be valid');
     }
     const now = new Date();
@@ -158,8 +158,9 @@ class Fragment {
    * @returns {boolean} true if we support this Content-Type (i.e., type/subtype)
    */
   static isSupportedType(value) {
+    const supportedType = ['text/plain', 'application/json'];
     const { type } = contentType.parse(value);
-    return type === 'text/plain';
+    return supportedType.includes(type);
   }
 }
 
