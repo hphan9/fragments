@@ -1,7 +1,7 @@
 // src/routes/api/get.js
 const logger = require('../../logger');
 const { Fragment } = require('../../model/fragment');
-
+var mime = require('mime-types');
 var { createSuccessResponse, createErrorResponse } = require('../../response');
 /**
  * Get a list of fragments for the current user
@@ -24,13 +24,25 @@ module.exports.getId = async function (req, res) {
   const { id } = req.params;
   logger.info({ id }, `Start handling Get request `);
   let fragment;
+  let extMimeType = mime.lookup(id);
   try {
     fragment = await Fragment.byId(req.user, id);
     logger.debug({ fragment }, `returns after query to database`);
     const rawData = await fragment.getData();
     const data = rawData.toString();
     logger.debug({ data }, 'data returned');
-    const convertType = fragment.type;
+    let convertType;
+    if (fragment.formats.includes(extMimeType)) {
+      convertType = extMimeType;
+    } else if (extMimeType === false) {
+      convertType = fragment.type;
+    } else {
+      return res
+        .status(415)
+        .json(
+          createErrorResponse(404, `Can not convert ${fragment.type} to the required extension`)
+        );
+    }
     res.setHeader('content-type', convertType);
     return res.status(200).send(data);
   } catch (err) {
