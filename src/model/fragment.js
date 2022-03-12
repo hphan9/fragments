@@ -59,7 +59,7 @@ class Fragment {
     if (!fragment) {
       throw new Error();
     } else {
-      return Promise.resolve(fragment);
+      return fragment;
     }
   }
 
@@ -102,7 +102,7 @@ class Fragment {
     }
     let now = new Date();
     this.updated = now.toISOString();
-    this.size = data.length;
+    this.size = data.byteLength;
     return writeFragmentData(this.ownerId, this.id, data);
   }
 

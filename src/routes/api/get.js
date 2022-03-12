@@ -29,8 +29,7 @@ module.exports.getId = async function (req, res) {
     fragment = await Fragment.byId(req.user, id);
     logger.debug({ fragment }, `returns after query to database`);
     const rawData = await fragment.getData();
-    const data = rawData.toString();
-    logger.debug({ data }, 'data returned');
+   logger.debug({ rawData }, 'data returned');
     let convertType;
     if (fragment.formats.includes(extMimeType)) {
       convertType = extMimeType;
@@ -44,7 +43,7 @@ module.exports.getId = async function (req, res) {
         );
     }
     res.setHeader('content-type', convertType);
-    return res.status(200).send(data);
+    return res.status(200).send(rawData);
   } catch (err) {
     logger.warn(`Error getting data for fragment ${err}`);
     return res.status(404).json(createErrorResponse(404, 'Error getting data for fragment'));
