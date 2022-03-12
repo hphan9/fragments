@@ -29,7 +29,7 @@ module.exports.getId = async function (req, res) {
     fragment = await Fragment.byId(req.user, id);
     logger.debug({ fragment }, `returns after query to database`);
     const rawData = await fragment.getData();
-   logger.debug({ rawData }, 'data returned');
+    logger.debug({ rawData }, 'data returned');
     let convertType;
     if (fragment.formats.includes(extMimeType)) {
       convertType = extMimeType;
