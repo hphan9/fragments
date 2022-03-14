@@ -1,8 +1,19 @@
 // src/routes/api/get.js
 const logger = require('../../logger');
 const { Fragment } = require('../../model/fragment');
-var mime = require('mime-types');
-var { createSuccessResponse, createErrorResponse } = require('../../response');
+const mime = require('mime-types');
+const md = require('markdown-it')();
+const { createSuccessResponse, createErrorResponse } = require('../../response');
+
+//function convert fragment to supported type
+const convertFragment = (data, mimeType) => {
+  let result = data;
+  if (mimeType == 'text/html') {
+    const stringData = data.toString();
+    result = md.render(stringData);
+  }
+  return result;
+};
 /**
  * Get a list of fragments for the current user
  */
@@ -21,15 +32,19 @@ module.exports.get = async function (req, res) {
   }
 };
 module.exports.getId = async function (req, res) {
-  const { id } = req.params;
+  let { id } = req.params;
   logger.info({ id }, `Start handling Get request `);
   let fragment;
   let extMimeType = mime.lookup(id);
+  if (id.includes('.')) {
+    id = id.replace(/\..*/, '');
+  }
   try {
     fragment = await Fragment.byId(req.user, id);
     logger.debug({ fragment }, `returns after query to database`);
     const rawData = await fragment.getData();
     logger.debug({ rawData }, 'data returned');
+    let result;
     let convertType;
     if (fragment.formats.includes(extMimeType)) {
       convertType = extMimeType;
@@ -42,8 +57,9 @@ module.exports.getId = async function (req, res) {
           createErrorResponse(404, `Can not convert ${fragment.type} to the required extension`)
         );
     }
+    result = convertFragment(rawData, convertType);
     res.setHeader('content-type', convertType);
-    return res.status(200).send(rawData);
+    return res.status(200).send(result);
   } catch (err) {
     logger.warn(`Error getting data for fragment ${err}`);
     return res.status(404).json(createErrorResponse(404, 'Error getting data for fragment'));
