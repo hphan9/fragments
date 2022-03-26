@@ -18,7 +18,7 @@ ENV NPM_CONFIG_COLOR=false
 COPY package*.json ./
 
 # Install node dependencies defined in package-lock.json
-RUN npm ci --only=production
+RUN npm ci --only=run
 ############################################################
 
 FROM dependencies As run
