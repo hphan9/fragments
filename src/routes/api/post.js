@@ -10,7 +10,7 @@ const logger = require('../../logger');
 module.exports = async (req, res) => {
   logger.info(`Start handling post request`);
   if (!Buffer.isBuffer(req.body)) {
-    return res.status(415).json(createErrorResponse(415, 'Cannot post fragment'));
+    return res.status(415).json(createErrorResponse(415, 'Can\'t post fragment'));
   }
   try {
     const fragment = new Fragment({ ownerId: req.user, type: req.get('content-type') });
