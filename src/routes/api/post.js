@@ -17,7 +17,8 @@ module.exports = async (req, res) => {
     await fragment.save();
     await fragment.setData(req.body);
     logger.info({ fragment }, `new fragment created`);
-    const fullURL = req.protocol + '://' + req.get('host') + req.originalUrl;
+    //should use env 
+    const fullURL= process.env.API_URL + req.originalUrl;
     res.set('Location', `${fullURL}/${fragment.id}`);
     return res.status(201).json(createSuccessResponse({ fragment }));
   } catch (err) {

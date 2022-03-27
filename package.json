@@ -6,7 +6,7 @@
   "engines": {
     "node": ">=16"
   },
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "test:watch": "jest -c jest.config.js --runInBand --watch --",
     "test": "jest -c jest.config.js --runInBand --",

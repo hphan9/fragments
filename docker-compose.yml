@@ -1,0 +1,10 @@
+# docker-compose.yml
+services:
+  fragments:
+    image: hphan9/fragments:latest
+    init: true
+    ports:
+      - '8080:8080'
+    environment:
+      - NODE_ENV=production
+      - HTPASSWD_FILE=tests/.htpasswd
