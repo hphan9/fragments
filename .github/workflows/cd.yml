@@ -76,7 +76,7 @@ jobs:
          DOCKER_TAG: ${{github.ref_name}}
          COMPOSE_FILE: deploy-${{github.ref_name }}.yml
         run:
-          envsubst < docker-compose.yml > ${{env.COMPOSE_FILE}}
+          envsubst < docker-compose.yml > ${{ env.COMPOSE_FILE }}
           echo "Created ${{ env.COMPOSE_FILE }}"
 
       - name: Deploy to Elastic Beanstalk
