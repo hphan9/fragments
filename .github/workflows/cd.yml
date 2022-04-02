@@ -72,7 +72,7 @@ jobs:
       - name: Create compose file with specific Docker image info
         env:
          # Define the variables we need to replace
-         DOCKER_REPO: ${{steps/login-ecr.outputs.registry}}/fragments
+         DOCKER_REPO: ${{steps.login-ecr.outputs.registry}}/fragments
          DOCKER_TAG: ${{github.ref_name}}
          COMPOSE_FILE: deploy-${{github.ref_name }}.yml
         run:
