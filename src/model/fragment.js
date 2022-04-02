@@ -158,7 +158,7 @@ class Fragment {
    * @returns {boolean} true if we support this Content-Type (i.e., type/subtype)
    */
   static isSupportedType(value) {
-    const supportedType = ['text/plain', 'application/json', `text/markdown`, `text/html`];
+    const supportedType = ['text/plain', 'application/json', `text/markdown`, `text/html`, `image/json`];
     const { type } = contentType.parse(value);
     return supportedType.includes(type);
   }
