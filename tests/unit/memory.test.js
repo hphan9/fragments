@@ -4,7 +4,7 @@ const {
   readFragmentData,
   writeFragmentData,
   listFragments,
-} = require('../../src/model/memory/index');
+} = require('../../src/model/data/memory/index');
 
 describe('memory-db', () => {
   test('writeFragment insert data to the database', async () => {

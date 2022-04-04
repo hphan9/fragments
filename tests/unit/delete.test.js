@@ -1,5 +1,6 @@
 const request = require('supertest');
 const app = require('../../src/app');
+const { Fragment } = require('../../src/model/fragment');
 
 describe('DELETE /v1/fragments/id', () => {
   // If the request is missing the Authorization header, it should be forbidden
@@ -31,8 +32,11 @@ describe('DELETE /v1/fragments/id', () => {
     const fragmentTest = resPost.body.fragment;
     //make delete request
     const resDelete = await request(app)
-      .delete(`/v1/fragments/${fragmentTest.Id}`)
+      .delete(`/v1/fragments/${fragmentTest.id}`)
       .auth('user2@email.com', 'password2');
-    expect(resDelete.statusCode).toBe(404);
+    expect(resDelete.statusCode).toBe(200);
+
+    //get the deleted fragment should throw rejects
+    await expect( Fragment.byId(fragmentTest.ownerId, fragmentTest.id) ).rejects.toThrow();
   });
 });
