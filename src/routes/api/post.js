@@ -1,4 +1,4 @@
-// src/routes/api/get.js
+// src/routes/api/post.js
 
 const { Fragment } = require('../../model/fragment');
 var { createSuccessResponse, createErrorResponse } = require('../../response');
@@ -10,15 +10,15 @@ const logger = require('../../logger');
 module.exports = async (req, res) => {
   logger.info(`Start handling post request`);
   if (!Buffer.isBuffer(req.body)) {
-    return res.status(415).json(createErrorResponse(415, 'Can\'t post fragment'));
+    return res.status(415).json(createErrorResponse(415, "Can't post fragment"));
   }
   try {
     const fragment = new Fragment({ ownerId: req.user, type: req.get('content-type') });
     await fragment.save();
     await fragment.setData(req.body);
     logger.info({ fragment }, `new fragment created`);
-    //should use env 
-    const fullURL= process.env.API_URL + req.originalUrl;
+    //should use env
+    const fullURL = process.env.API_URL + req.originalUrl;
     res.set('Location', `${fullURL}/${fragment.id}`);
     return res.status(201).json(createSuccessResponse({ fragment }));
   } catch (err) {

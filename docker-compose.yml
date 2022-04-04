@@ -1,7 +1,7 @@
 # docker-compose.yml
 services:
   fragments:
-    image:  ${DOCKER_REPO}:${DOCKER_TAG}
+    image: ${DOCKER_REPO}:${DOCKER_TAG}
     init: true
     ports:
       - '80:8080'
