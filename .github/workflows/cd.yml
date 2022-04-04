@@ -32,7 +32,7 @@ jobs:
         # Use buildx, which is faster and can optimize the build steps
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
-      
+
       - name: Configure AWS Credentials using Secrets
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -67,20 +67,20 @@ jobs:
           # Use the git tag version and `latest`
           tags: ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPO }}:${{ env.VERSION_TAG }}, ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPO }}:latest
 
-# we need to create a new compose file to deploy to Elastic Beanstalk, and it needs to include our updated Docker image info (the tag we just pushed)
-# We will substitue environment variables to create a new file using the `envsubst` command,
+      # we need to create a new compose file to deploy to Elastic Beanstalk, and it needs to include our updated Docker image info (the tag we just pushed)
+      # We will substitue environment variables to create a new file using the `envsubst` command,
       - name: Create compose file with specific Docker image info
         env:
-         # Define the variables we need to replace
-         DOCKER_REPO: ${{steps.login-ecr.outputs.registry}}/fragments
-         DOCKER_TAG: ${{github.ref_name}}
-         COMPOSE_FILE: deploy-${{github.ref_name }}.yml
+          # Define the variables we need to replace
+          DOCKER_REPO: ${{steps.login-ecr.outputs.registry}}/fragments
+          DOCKER_TAG: ${{github.ref_name}}
+          COMPOSE_FILE: deploy-${{github.ref_name }}.yml
         run: |
           envsubst < docker-compose.yml > ${{ env.COMPOSE_FILE }}
           echo "Created ${{ env.COMPOSE_FILE }}"
 
       - name: Deploy to Elastic Beanstalk
-        env: 
+        env:
           VERSION: ${{github.ref_name}}
           COMPOSE_FILE: deploy-${{ github.ref_name}}.yml
         uses: einaregilsson/beanstalk-deploy@v20
@@ -89,9 +89,8 @@ jobs:
           aws_secret_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
           aws_session_token: ${{secrets.AWS_SESSION_TOKEN}}
           region: us-east-1
-        # Make sure this matches your Elastic Beanstalk application name
+          # Make sure this matches your Elastic Beanstalk application name
           application_name: fragments4
           environment_name: Fragments4-env
           version_label: ${{ env.VERSION }}
           deployment_package: ${{ env.COMPOSE_FILE }}
-
