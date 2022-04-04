@@ -38,6 +38,6 @@ HTTP/1.1 200
 GET {{url}}
 Authorization: Basic dXNlcjJAZW1haWwuY29tOnBhc3N3b3JkMg==
 
-# the server returns a 200
+# the server returns a 404
 HTTP/1.1 404
 
