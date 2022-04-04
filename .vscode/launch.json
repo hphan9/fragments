@@ -11,14 +11,14 @@
       "skipFiles": ["<node_internals>/**"],
       "type": "pwa-node"
     },
-      // Start the app and attach the debugger
-      {
-        "name": "Debug via npm run start",
-        "request": "launch",
-        "runtimeArgs": ["run-script", "start"],
-        "runtimeExecutable": "npm",
-        "skipFiles": ["<node_internals>/**"],
-        "type": "pwa-node"
-      }
+    // Start the app and attach the debugger
+    {
+      "name": "Debug via npm run start",
+      "request": "launch",
+      "runtimeArgs": ["run-script", "start"],
+      "runtimeExecutable": "npm",
+      "skipFiles": ["<node_internals>/**"],
+      "type": "pwa-node"
+    }
   ]
 }
