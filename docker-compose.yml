@@ -11,9 +11,9 @@ services:
       # Use whatever LOG_LEVEL is set to, or `info` as a default if not set
       - LOG_LEVEL=${LOG_LEVEL:-info}
       - AWS_REGION=us-east-1
-       # The S3 Bucket to use, default to `fragments` if missing
-      - AWS_S3_BUCKET_NAME=${AWS_S3_BUCKET_NAME:hphan9-fragments}
       # Allow the following variables to be forwarded into the container from the env if set
       - AWS_COGNITO_POOL_ID
       - AWS_COGNITO_CLIENT_ID
       - HTPASSWD
+        # The S3 Bucket to use, default to `fragments` if missing
+      - AWS_S3_BUCKET_NAME=${AWS_S3_BUCKET_NAME:-hphan9-fragments}

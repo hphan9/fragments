@@ -82,7 +82,7 @@ jobs:
       - name: Deploy to Elastic Beanstalk
         env:
           VERSION: ${{github.ref_name}}
-          COMPOSE_FILE: deploy-${{ github.ref_name}}.yml
+          COMPOSE_FILE: deploy-${{github.ref_name}}.yml
         uses: einaregilsson/beanstalk-deploy@v20
         with:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
