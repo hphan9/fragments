@@ -21,10 +21,12 @@ const rawBody = () =>
       return Fragment.isSupportedType(type);
     },
   });
+
 // Define our first route, which will be: GET /v1/fragments
 router.get('/fragments', get);
 router.get('/fragments/:id', getId);
 router.get('/fragments/:id/info', getIdInfo);
 router.post('/fragments', rawBody(), require('./post'));
+router.put('/fragments/:id', rawBody(), require('./put'));
 router.delete('/fragments/:id', require('./delete'));
 module.exports = router;

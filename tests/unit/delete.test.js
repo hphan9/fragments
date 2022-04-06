@@ -37,6 +37,6 @@ describe('DELETE /v1/fragments/id', () => {
     expect(resDelete.statusCode).toBe(200);
 
     //get the deleted fragment should throw rejects
-    await expect( Fragment.byId(fragmentTest.ownerId, fragmentTest.id) ).rejects.toThrow();
+    await expect(Fragment.byId(fragmentTest.ownerId, fragmentTest.id)).rejects.toThrow();
   });
 });
