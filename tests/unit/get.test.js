@@ -88,7 +88,7 @@ describe('GET /v1/fragments', () => {
       .get(`/v1/fragments/${fragmentTest.id}/info`)
       .auth('user2@email.com', 'password2');
     expect(res.statusCode).toBe(200);
-    expect(res.body.fragments).toMatchObject(fragmentTest);
+    expect(res.body.fragment).toMatchObject(fragmentTest);
   });
 
   test('get/:id.html request returns an existing fragments data converted to Html.', async () => {

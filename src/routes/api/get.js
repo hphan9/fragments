@@ -34,13 +34,12 @@ module.exports.get = async function (req, res) {
 module.exports.getId = async function (req, res) {
   let { id } = req.params;
   logger.info({ id }, `Start handling Get request `);
-  let fragment;
   let extMimeType = mime.lookup(id);
   if (id.includes('.')) {
     id = id.replace(/\..*/, '');
   }
   try {
-    fragment = await Fragment.byId(req.user, id);
+    let fragment = await Fragment.byId(req.user, id);
     logger.debug({ fragment }, `returns after query to database`);
     const rawData = await fragment.getData();
     logger.debug({ rawData }, 'data returned');
@@ -71,8 +70,8 @@ module.exports.getIdInfo = async function (req, res) {
   let fragment;
   try {
     fragment = await Fragment.byId(req.user, id);
-    logger.debug({ fragment }, `returns after query to database`);
-    return res.status(200).json(createSuccessResponse({ fragments: fragment }));
+    logger.info({ fragment }, `returns after query to database`);
+    return res.status(200).json(createSuccessResponse({ fragment: fragment }));
   } catch (err) {
     logger.warn(`Error getting data for fragment ${err}`);
     return res.status(404).json(createErrorResponse(404, 'Error getting data for fragment'));
