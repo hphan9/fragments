@@ -29,12 +29,15 @@ WORKDIR /app
 ENV PORT=8080
 
 COPY --from=dependencies /app /app
+RUN true
 
 #Copy src to /app/src/
 COPY ./src ./src
+RUN true
 
 # Copy our HTPASSWD file
 COPY ./tests/.htpasswd ./tests/.htpasswd
+RUN true
 
 # Start the container by running our server
 CMD ["npm", "start"]
