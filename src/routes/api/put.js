@@ -6,7 +6,7 @@ const logger = require('../../logger');
 
 module.exports = async (req, res) => {
   const { id } = req.params;
-  logger.info({ id }, `start handling put request`);
+  logger.info({ id }, `start handling PUT request`);
   try {
     //get the fragment
     let fragment = await Fragment.byId(req.user, id);
@@ -28,7 +28,7 @@ module.exports = async (req, res) => {
     }
     await fragment.setData(req.body);
     logger.debug({ fragment }, `set new fragment data`);
-    logger.info('set new fragment data');
+    logger.info('Set new fragment data');
     return res.status(201).json(createSuccessResponse({ fragment }));
   } catch (err) {
     logger.warn(err);

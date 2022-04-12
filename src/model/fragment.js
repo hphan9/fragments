@@ -59,7 +59,7 @@ class Fragment {
     if (!fragment) {
       throw new Error();
     } else {
-      return fragment;
+      return new Fragment({ ...fragment });
     }
   }
 

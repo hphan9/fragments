@@ -37,6 +37,7 @@ describe('POST /v1/fragments', () => {
     const newFragment = await await Fragment.byId(fragmentTest.ownerId, fragmentTest.id);
     expect(newFragment.id).toBe(fragmentTest.id);
     expect(newFragment.type).toBe('text/plain');
+    expect(newFragment.size).toBe(15);
   });
   test('authenticated users with content-type application/json can post a fragment', async () => {
     const data = 'Have a nice day';
@@ -63,6 +64,7 @@ describe('POST /v1/fragments', () => {
     const newFragment = await Fragment.byId(fragmentTest.ownerId, fragmentTest.id);
     expect(newFragment.id).toBe(fragmentTest.id);
     expect(newFragment.type).toBe('text/html');
+    expect(newFragment.size).toBe(15);
   });
 
   test('authenticated users with content-type text/markdown can post a fragment', async () => {
@@ -77,5 +79,6 @@ describe('POST /v1/fragments', () => {
     const newFragment = await Fragment.byId(fragmentTest.ownerId, fragmentTest.id);
     expect(newFragment.id).toBe(fragmentTest.id);
     expect(newFragment.type).toBe('text/markdown');
+    expect(newFragment.size).toBe(15);
   });
 });
