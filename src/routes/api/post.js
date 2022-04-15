@@ -10,7 +10,7 @@ const logger = require('../../logger');
 module.exports = async (req, res) => {
   logger.info(`Start handling post request`);
   if (!Buffer.isBuffer(req.body)) {
-    logger.warn("request body is not a Buffer");
+    logger.warn('request body is not a Buffer');
     return res.status(415).json(createErrorResponse(415, "Can't post fragment"));
   }
   try {
@@ -22,7 +22,7 @@ module.exports = async (req, res) => {
     res.set('Location', `${fullURL}/${fragment.id}`);
     return res.status(201).json(createSuccessResponse({ fragment }));
   } catch (err) {
-    logger.error({err}, "Error posting Fragment");
+    logger.error({ err }, 'Error posting Fragment');
     return res.status(415).json(createErrorResponse(415, err));
   }
 };

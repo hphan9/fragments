@@ -30,7 +30,7 @@ module.exports = async (req, res) => {
     logger.debug({ fragment }, `Set new fragment data`);
     return res.status(201).json(createSuccessResponse({ fragment }));
   } catch (err) {
-    logger.error({err},`Error updating Fragment Data`);
+    logger.error({ err }, `Error updating Fragment Data`);
     return res.status(404).json(createErrorResponse(404, err));
   }
 };

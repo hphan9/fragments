@@ -3,8 +3,7 @@ const logger = require('../../logger');
 const { Fragment } = require('../../model/fragment');
 const { createSuccessResponse, createErrorResponse } = require('../../response');
 
-
-module.exports.getIdInfo = async function (req, res) {
+module.exports = async function (req, res) {
   const { id } = req.params;
   logger.info({ id }, `Start handling Get Fragment Info request `);
   let fragment;

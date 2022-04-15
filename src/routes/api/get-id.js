@@ -13,7 +13,7 @@ const convertFragment = (data, mimeType) => {
   }
   return result;
 };
-module.exports.getId = async function (req, res) {
+module.exports = async function (req, res) {
   let { id } = req.params;
   logger.info({ id }, `Start handling Get request `);
   let extMimeType = mime.lookup(id);
@@ -32,7 +32,7 @@ module.exports.getId = async function (req, res) {
     } else if (extMimeType === false) {
       convertType = fragment.type;
     } else {
-      logger.warn(`Can not convert ${fragment.type} to ${extMimeType} `)
+      logger.warn(`Can not convert ${fragment.type} to ${extMimeType} `);
       return res
         .status(415)
         .json(

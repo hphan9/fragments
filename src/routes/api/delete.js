@@ -11,7 +11,7 @@ module.exports = async (req, res) => {
     await Fragment.delete(req.user, id);
     return res.status(200).json(createSuccessResponse());
   } catch (err) {
-    logger.error({err},`Error deleting data for fragment ${id}`);
+    logger.error({ err }, `Error deleting data for fragment ${id}`);
     return res.status(404).json(createErrorResponse(404, 'Error deleting data for fragment'));
   }
 };
