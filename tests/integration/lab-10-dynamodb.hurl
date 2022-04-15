@@ -90,3 +90,6 @@ HTTP/1.1 200
 [Asserts]
 jsonpath "$.fragments" count == 1
 jsonpath "$.fragments[0]" == {{fragment2_id}}
+
+# Clean test database
+DELETE {{fragment2_url}}

@@ -40,3 +40,6 @@ Content-Type: text/plain
 Content-Length: 19
 [Asserts]
 body == "This is a fragment!"
+
+# Clean test database
+DELETE {{url}}

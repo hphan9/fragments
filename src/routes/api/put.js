@@ -10,7 +10,7 @@ module.exports = async (req, res) => {
   try {
     //get the fragment
     let fragment = await Fragment.byId(req.user, id);
-    logger.debug({ fragment }, `get fragment metadata`);
+    logger.info({ fragment }, `get fragment metadata`);
     const { type } = contentType.parse(req);
     if (type != fragment.mimeType) {
       logger.warn(
@@ -27,11 +27,10 @@ module.exports = async (req, res) => {
         );
     }
     await fragment.setData(req.body);
-    logger.debug({ fragment }, `set new fragment data`);
-    logger.info('Set new fragment data');
+    logger.info({ fragment }, `Set new fragment data`);
     return res.status(201).json(createSuccessResponse({ fragment }));
   } catch (err) {
-    logger.warn(err);
+    logger.warn({err},`Error updating Fragment Data`);
     return res.status(404).json(createErrorResponse(404, err));
   }
 };
