@@ -6,11 +6,11 @@ const logger = require('../../logger');
 
 module.exports = async (req, res) => {
   const { id } = req.params;
-  logger.info({ id }, `start handling PUT request`);
+  logger.info({ id }, `Start handling PUT request`);
   try {
     //get the fragment
     let fragment = await Fragment.byId(req.user, id);
-    logger.info({ fragment }, `get fragment metadata`);
+    logger.debug({ fragment }, `fragment metadata returns after querying the database`);
     const { type } = contentType.parse(req);
     if (type != fragment.mimeType) {
       logger.warn(
@@ -27,10 +27,10 @@ module.exports = async (req, res) => {
         );
     }
     await fragment.setData(req.body);
-    logger.info({ fragment }, `Set new fragment data`);
+    logger.debug({ fragment }, `Set new fragment data`);
     return res.status(201).json(createSuccessResponse({ fragment }));
   } catch (err) {
-    logger.warn({err},`Error updating Fragment Data`);
+    logger.error({err},`Error updating Fragment Data`);
     return res.status(404).json(createErrorResponse(404, err));
   }
 };

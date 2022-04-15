@@ -82,7 +82,7 @@ describe('GET /v1/fragments', () => {
     expect(res.text).toBe(data);
   });
 
-  test('get/:id/info request return correct data we put into the database', async () => {
+  test('get/:id/info request return correct metadata we put into the database', async () => {
     await setupFragment();
     const res = await request(app)
       .get(`/v1/fragments/${fragmentTest.id}/info`)
@@ -91,7 +91,7 @@ describe('GET /v1/fragments', () => {
     expect(res.body.fragment).toMatchObject(fragmentTest);
   });
 
-  test('get/:id.html request returns an existing fragments data converted to Html.', async () => {
+  test('get/:id.html request returns an txt fragment data converted to Html.', async () => {
     await setupFragment('text/markdown');
     const res = await request(app)
       .get(`/v1/fragments/${fragmentTest.id}.html`)
@@ -99,7 +99,7 @@ describe('GET /v1/fragments', () => {
     expect(res.statusCode).toBe(200);
     expect(res.text).toBe(`<p>${data}</p>\n`);
   });
-  test('get/:id.txt request returns an existing fragments data converted to txt.', async () => {
+  test('get/:id.txt request returns an existing txt fragment data converted to txt.', async () => {
     await setupFragment('text/plain');
     const res = await request(app)
       .get(`/v1/fragments/${fragmentTest.id}.txt`)
