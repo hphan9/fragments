@@ -35,7 +35,7 @@ describe('DELETE /v1/fragments/id', () => {
       .delete(`/v1/fragments/${fragmentTest.id}`)
       .auth('user2@email.com', 'password2');
     expect(resDelete.statusCode).toBe(200);
-
+    expect(resDelete.body.status).toBe('ok');
     //get the deleted fragment should throw rejects
     await expect(Fragment.byId(fragmentTest.ownerId, fragmentTest.id)).rejects.toThrow();
   });

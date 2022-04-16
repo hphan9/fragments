@@ -7,6 +7,10 @@ const logger = require('../../logger');
 module.exports = async (req, res) => {
   const { id } = req.params;
   logger.info({ id }, `Start handling PUT request`);
+  if (!Buffer.isBuffer(req.body)) {
+    logger.warn('request body is not a Buffer');
+    return res.status(400).json(createErrorResponse(400, "Can't update fragment"));
+  }
   try {
     //get the fragment
     let fragment = await Fragment.byId(req.user, id);

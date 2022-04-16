@@ -17,7 +17,7 @@ describe('POST /v1/fragments', () => {
     //make post request
     const res = await request(app)
       .post('/v1/fragments')
-      .set('Content-type', 'image/jpg')
+      .set('Content-type', 'application/x-freearc')
       .send(data)
       .auth('user2@email.com', 'password2');
 
@@ -67,7 +67,36 @@ describe('POST /v1/fragments', () => {
     expect(newFragment.size).toBe(15);
   });
 
-  test('authenticated users with content-type text/markdown can post a fragment', async () => {
+ 
+  test('authenticated users with content-type image/png can post a fragment', async () => {
+    const data = 'Have a nice day';
+    //make post request
+    const resPost = await request(app)
+      .post('/v1/fragments')
+      .set('Content-type', 'text/markdown')
+      .send(data)
+      .auth('user2@email.com', 'password2');
+    const fragmentTest = resPost.body.fragment;
+    const newFragment = await Fragment.byId(fragmentTest.ownerId, fragmentTest.id);
+    expect(newFragment.id).toBe(fragmentTest.id);
+    expect(newFragment.type).toBe('text/markdown');
+    expect(newFragment.size).toBe(15);
+  });
+  test('authenticated users with content-type image/webp can post a fragment', async () => {
+    const data = 'Have a nice day';
+    //make post request
+    const resPost = await request(app)
+      .post('/v1/fragments')
+      .set('Content-type', 'text/markdown')
+      .send(data)
+      .auth('user2@email.com', 'password2');
+    const fragmentTest = resPost.body.fragment;
+    const newFragment = await Fragment.byId(fragmentTest.ownerId, fragmentTest.id);
+    expect(newFragment.id).toBe(fragmentTest.id);
+    expect(newFragment.type).toBe('text/markdown');
+    expect(newFragment.size).toBe(15);
+  });
+  test('authenticated users with content-type image/gif can post a fragment', async () => {
     const data = 'Have a nice day';
     //make post request
     const resPost = await request(app)

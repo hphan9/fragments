@@ -6,7 +6,7 @@ const { createSuccessResponse, createErrorResponse } = require('../../response')
  * Get a list of fragments for the current user
  */
 module.exports = async function (req, res) {
-  let expand = req.query.expand ? true : false;
+  const expand = !!req.query.expand;
   logger.info({ expand }, `Start handling Get request `);
   // get all the data by User
   let fragments;
