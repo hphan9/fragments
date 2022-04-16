@@ -120,4 +120,4 @@ jobs:
       - name: Setup Local AWS Resources
         run: ./scripts/local-aws-setup.sh
       - name: Run Hurl Tests
-        run: hurl --test --glob ./tests/integration/**/*.hurl
+        run: ./scripts/integration-tests.sh
