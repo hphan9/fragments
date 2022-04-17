@@ -8,6 +8,10 @@ const validTypes = [
   `application/json`,
   `text/markdown`,
   `text/html`,
+  `image/png`,
+  `image/jpeg`,
+  `image/webp`,
+  `image/gif`,
   /*
    Currently, only text/plain is supported. Others will be added later.
   `text/markdown`,
@@ -127,6 +131,12 @@ describe('Fragment class', () => {
     });
     test('application/json types are supported', () => {
       expect(Fragment.isSupportedType('application/json')).toBe(true);
+    });
+    test('image/* types are supported', () => {
+      expect(Fragment.isSupportedType('image/png')).toBe(true);
+      expect(Fragment.isSupportedType('image/jpeg')).toBe(true);
+      expect(Fragment.isSupportedType('image/webp')).toBe(true);
+      expect(Fragment.isSupportedType('image/gif')).toBe(true);
     });
     test('other types are not supported', () => {
       expect(Fragment.isSupportedType('application/octet-stream')).toBe(false);

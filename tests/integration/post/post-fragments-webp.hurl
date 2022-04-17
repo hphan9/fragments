@@ -4,7 +4,7 @@ POST http://localhost:8080/v1/fragments
 # user2@email.com:password2
 Authorization: Basic dXNlcjJAZW1haWwuY29tOnBhc3N3b3JkMg==
 Content-Type: image/webp
-file,./images/flower.webp;
+file,./images/house.webp;
 
 # We expect to get back an HTTP 201
 HTTP/1.1 201

@@ -6,12 +6,12 @@ const { Fragment } = require('../../src/model/fragment');
 describe('GET /v1/fragments/{id}', () => {
   let fragmentTest;
   const data = 'Have a nice day';
-  const setupFragment = async (type = 'text/plain') => {
+  const setupFragment = async (type = 'text/plain', testData = data) => {
     //make post request
     const resPost = await request(app)
       .post('/v1/fragments')
       .set('Content-type', type)
-      .send(data)
+      .send(testData)
       .auth('user2@email.com', 'password2');
     fragmentTest = resPost.body.fragment;
   };
@@ -51,8 +51,7 @@ describe('GET /v1/fragments/{id}', () => {
     expect(res.statusCode).toBe(200);
     expect(res.text).toBe(data);
   });
-
-  test('get/:id.html request returns an txt fragment data converted to Html.', async () => {
+  test('get/:id.html request returns an markdown fragment data converted to Html.', async () => {
     await setupFragment('text/markdown');
     const res = await request(app)
       .get(`/v1/fragments/${fragmentTest.id}.html`)
@@ -60,13 +59,33 @@ describe('GET /v1/fragments/{id}', () => {
     expect(res.statusCode).toBe(200);
     expect(res.text).toBe(`<p>${data}</p>\n`);
   });
-  test('get/:id.txt request returns an existing txt fragment data converted to txt.', async () => {
-    await setupFragment('text/plain');
+  test('get/:id.html request returns the same fragment data for fragment text/html type', async () => {
+    const testData = `<h1>${data}</h1>`;
+    await setupFragment('text/html', testData);
+    const res = await request(app)
+      .get(`/v1/fragments/${fragmentTest.id}.html`)
+      .auth('user2@email.com', 'password2');
+    expect(res.statusCode).toBe(200);
+    expect(res.text).toBe(testData);
+  });
+  test('get/:id.txt request returns the fragment data converted to text type', async () => {
+    const testData = `<h1>${data}</h1>`;
+    await setupFragment('text/html', testData);
+    const res = await request(app)
+      .get(`/v1/fragments/${fragmentTest.id}.html`)
+      .auth('user2@email.com', 'password2');
+    expect(res.statusCode).toBe(200);
+    expect(res.text).toBe(testData);
+  });
+  test('get/:id.txt request returns fragment data markdown converted to text/plain type', async () => {
+    const testData = `# ${data}`;
+    await setupFragment('text/markdown', testData);
     const res = await request(app)
       .get(`/v1/fragments/${fragmentTest.id}.txt`)
       .auth('user2@email.com', 'password2');
     expect(res.statusCode).toBe(200);
-    expect(res.text).toBe(data);
+    expect(res.header['content-type']).toBe('text/plain');
+    expect(res.text).toBe(testData);
   });
   test('get/:id.jpg request for text fragment returns 415.', async () => {
     await setupFragment('text/plain');
@@ -74,5 +93,18 @@ describe('GET /v1/fragments/{id}', () => {
       .get(`/v1/fragments/${fragmentTest.id}.jpg`)
       .auth('user2@email.com', 'password2');
     expect(res.statusCode).toBe(415);
+  });
+  test('get/:id.txt request returns fragment data converted to text/plain type', async () => {
+    const testData = {
+      id: 1,
+      name: 'Mike',
+    };
+    await setupFragment('application/json', testData);
+    const res = await request(app)
+      .get(`/v1/fragments/${fragmentTest.id}.txt`)
+      .auth('user2@email.com', 'password2');
+    expect(res.statusCode).toBe(200);
+    expect(res.header['content-type']).toBe('text/plain');
+    expect(res.text).toBe('{"id":1,"name":"Mike"}');
   });
 });

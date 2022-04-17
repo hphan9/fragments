@@ -3,7 +3,7 @@ const { nanoid } = require('nanoid');
 const md = require('markdown-it')();
 // Use https://www.npmjs.com/package/content-type to create/parse Content-Type headers
 const contentType = require('content-type');
-const sharp= require('sharp');
+const sharp = require('sharp');
 
 // Functions for working with fragment metadata/data using our DB
 const {
@@ -99,15 +99,17 @@ class Fragment {
    */
   async convertData(type) {
     const rawData = await this.getData();
-    if (type == 'text/html') {
-      const stringData = rawData.toString();
-      return md.render(stringData);
-    }
-    const imageReg= /image\/*/;
-    if(imageReg.test(type)){
-      const format = type.replace("image/","");
-      const data= await sharp(rawData).toFormat(format).toBuffer();
-      return data;
+    if (type != this.mimeType) {
+      if (type == 'text/html') {
+        const stringData = rawData.toString();
+        return md.render(stringData);
+      }
+      const imageReg = /image\/*/;
+      if (imageReg.test(type)) {
+        const format = type.replace('image/', '');
+        const data = await sharp(rawData).toFormat(format).toBuffer();
+        return data;
+      }
     }
     return rawData;
   }
@@ -157,17 +159,17 @@ class Fragment {
       case 'text/markdown':
         return ['text/markdown', 'text/html', 'text/plain'];
       case 'text/html':
-        return ['text/html', 'text/txt'];
+        return ['text/html', 'text/plain'];
       case 'application/json':
         return ['text/plain', 'application/json'];
       case 'image/png':
-        return ['image/png', 'image/jpg', 'image/webp', 'image/gif'];
+        return ['image/png', 'image/jpeg', 'image/webp', 'image/gif'];
       case 'image/jpeg':
-        return ['image/png', 'image/jpg', 'image/webp', 'image/gif'];
+        return ['image/png', 'image/jpeg', 'image/webp', 'image/gif'];
       case 'image/webp':
-        return ['image/png', 'image/jpg', 'image/webp', 'image/gif'];
+        return ['image/png', 'image/jpeg', 'image/webp', 'image/gif'];
       case 'image/gif':
-        return ['image/png', 'image/jpg', 'image/webp', 'image/gif'];
+        return ['image/png', 'image/jpeg', 'image/webp', 'image/gif'];
       default:
         return [];
     }
