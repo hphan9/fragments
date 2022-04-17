@@ -38,6 +38,3 @@ Content-Type: text/html
 [Asserts]
 body == "<p>This is a fragment!</p>"
 
-# Clean test database
-DELETE {{url}}
-Authorization: Basic dXNlcjJAZW1haWwuY29tOnBhc3N3b3JkMg==

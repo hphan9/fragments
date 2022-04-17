@@ -64,7 +64,6 @@ Authorization: Basic dXNlcjJAZW1haWwuY29tOnBhc3N3b3JkMg==
 HTTP/1.1 200
 
 [Asserts]
-jsonpath "$.fragments" count == 2
 jsonpath "$.fragments" includes {{fragment1_id}}
 jsonpath "$.fragments" includes {{fragment2_id}}
 
@@ -88,9 +87,7 @@ Authorization: Basic dXNlcjJAZW1haWwuY29tOnBhc3N3b3JkMg==
 
 HTTP/1.1 200
 [Asserts]
-jsonpath "$.fragments" count == 1
-jsonpath "$.fragments[0]" == {{fragment2_id}}
+jsonpath "$.fragments" includes {{fragment2_id}}
+jsonpath "$.fragments" not includes {{fragment1_id}}
 
-# Clean test database
-DELETE {{fragment2_url}}
-Authorization: Basic dXNlcjJAZW1haWwuY29tOnBhc3N3b3JkMg==
+

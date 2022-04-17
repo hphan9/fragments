@@ -18,7 +18,7 @@ ENV NPM_CONFIG_COLOR=false
 COPY package*.json ./
 
 # Install node dependencies defined in package-lock.json
-RUN npm ci --production
+RUN npm ci --only=production
 ############################################################
 
 FROM dependencies As run
@@ -40,7 +40,7 @@ COPY ./tests/.htpasswd ./tests/.htpasswd
 RUN true
 
 # Start the container by running our server
-CMD ["npm", "start"]
+CMD [ "node", "src/index.js" ]
 
 # We run our service on port 8080
 EXPOSE 8080
