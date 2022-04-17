@@ -39,6 +39,9 @@ RUN true
 COPY ./tests/.htpasswd ./tests/.htpasswd
 RUN true
 
+# Install curl
+RUN apk add curl 
+
 # Start the container by running our server
 CMD [ "node", "src/index.js" ]
 
