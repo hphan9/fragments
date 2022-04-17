@@ -40,7 +40,7 @@ COPY ./tests/.htpasswd ./tests/.htpasswd
 RUN true
 
 # Install curl
-RUN apk --no-cache add curl
+RUN apk --no-cache add curl=7.79.1-r0
 
 # Start the container by running our server
 CMD [ "node", "src/index.js" ]
