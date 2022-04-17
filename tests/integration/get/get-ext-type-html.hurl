@@ -37,3 +37,6 @@ HTTP/1.1 200
 Content-Type: text/html
 [Asserts]
 body == "<p>This is a fragment!</p>"
+
+# Clean test database
+DELETE {{url}}

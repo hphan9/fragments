@@ -27,3 +27,12 @@ HTTP/1.1 200
 Content-Type: application/json
 [Asserts]
 jsonpath "$.data" == "This is a fragment!"
+
+# invalid extenstion
+GET {{url}}.wrong
+Authorization: Basic dXNlcjJAZW1haWwuY29tOnBhc3N3b3JkMg==
+
+HTTP/1.1 415
+
+# Clean test database
+DELETE {{url}}
