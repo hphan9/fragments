@@ -93,3 +93,4 @@ jsonpath "$.fragments[0]" == {{fragment2_id}}
 
 # Clean test database
 DELETE {{fragment2_url}}
+Authorization: Basic dXNlcjJAZW1haWwuY29tOnBhc3N3b3JkMg==

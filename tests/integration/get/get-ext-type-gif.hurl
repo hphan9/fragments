@@ -37,3 +37,5 @@ HTTP/1.1 415
 
 # Clean test database
 DELETE {{url}}
+Authorization: Basic dXNlcjJAZW1haWwuY29tOnBhc3N3b3JkMg==
+
