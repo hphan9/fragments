@@ -126,6 +126,8 @@ class Fragment {
     let now = new Date();
     this.updated = now.toISOString();
     this.size = data.byteLength;
+    //we need to update the dynamoDB size here
+    await writeFragment(this);
     return writeFragmentData(this.ownerId, this.id, data);
   }
 
