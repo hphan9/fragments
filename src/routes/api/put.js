@@ -30,6 +30,7 @@ module.exports = async (req, res) => {
           )
         );
     }
+    logger.info({ type }, `setting new data`);
     await fragment.setData(req.body);
     logger.debug({ fragment }, `Set new fragment data`);
     return res.status(201).json(createSuccessResponse({ fragment }));

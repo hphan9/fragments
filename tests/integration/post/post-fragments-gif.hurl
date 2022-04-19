@@ -22,6 +22,7 @@ jsonpath "$.fragment.ownerId" matches "^[0-9a-fA-F]+$"
 jsonpath "$.fragment.created" isString
 jsonpath "$.fragment.updated" isString
 jsonpath "$.fragment.type" == "image/gif"
+jsonpath "$.fragment.size" != 0
 
 # Capture the Location URL into a variable named `url`
 [Captures]

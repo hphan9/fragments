@@ -9,7 +9,7 @@ module.exports = async function (req, res) {
   let fragment;
   try {
     fragment = await Fragment.byId(req.user, id);
-    logger.debug({ fragment }, `returns after query to database`);
+    logger.debug({ fragment }, `returns after querying the database`);
     return res.status(200).json(createSuccessResponse({ fragment: fragment }));
   } catch (err) {
     logger.error(`Error getting data for fragment ${err}`);

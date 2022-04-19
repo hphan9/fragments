@@ -23,10 +23,11 @@ module.exports = async function (req, res) {
           .json(createErrorResponse(415, `The request ext is not a valid type`));
       }
       convertType = extMimeType;
-      logger.debug({ convertType }, `convert type`);
+      logger.info({ convertType }, `convert type`);
       id = id.replace(/\..*/, '');
     }
     const fragment = await Fragment.byId(req.user, id);
+    logger.info(`metadata returns after querying the database`);
     logger.debug({ fragment }, `metadata returns after querying the database`);
     if (!convertType || convertType == fragment.type) {
       const result = await fragment.getData();
@@ -41,6 +42,7 @@ module.exports = async function (req, res) {
           createErrorResponse(415, `Can not convert ${fragment.type} to the request extension`)
         );
     }
+    logger.info(`start converting fragment`);
     const result = await fragment.convertData(convertType);
     res.setHeader('content-type', convertType);
     return res.status(200).send(result);
