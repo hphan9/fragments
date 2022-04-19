@@ -15,6 +15,7 @@ services:
       - AWS_COGNITO_POOL_ID
       - AWS_COGNITO_CLIENT_ID
       - HTPASSWD
+      - API_URL
         # The S3 Bucket to use, default to `fragments` if missing
       - AWS_S3_BUCKET_NAME=${AWS_S3_BUCKET_NAME:-hphan9-fragments}
       - AWS_DYNAMODB_TABLE_NAME=${AWS_DYNAMODB_TABLE_NAME:-fragments}
